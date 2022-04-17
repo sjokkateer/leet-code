@@ -17,7 +17,7 @@ final class IslandFindingTest extends TestCase
     {
         $islandFinder = new IslandFinding();
 
-        $actualNumberOfIslands = $islandFinder->numIslands($grid);
+        $actualNumberOfIslands = $islandFinder->processGrid($grid);
 
         static::assertEquals($expectedNumberOfIslands, $actualNumberOfIslands);
     }
@@ -29,31 +29,31 @@ final class IslandFindingTest extends TestCase
         return [
             'example 1' => [
                 [
-                    ['1', '1', '1', '1', '0'],
-                    ['1', '1', '0', '1', '0'],
-                    ['1', '1', '0', '0', '0'],
-                    ['0', '0', '0', '0', '0'],
+                    [1, 1, 1, 1, 0],
+                    [1, 1, 0, 1, 0],
+                    [1, 1, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
                 ],
                 1,
             ],
             'example 2' => [
                 [
-                    ['1', '1', '0', '0', '0'],
-                    ['1', '1', '0', '0', '0'],
-                    ['0', '0', '1', '0', '0'],
-                    ['0', '0', '0', '1', '1'],
+                    [1, 1, 0, 0, 0],
+                    [1, 1, 0, 0, 0],
+                    [0, 0, 1, 0, 0],
+                    [0, 0, 0, 1, 1],
                 ],
                 3,
             ],
             'single land' => [
                 [
-                    ['1'],
+                    [1],
                 ],
                 1,
             ],
             'single water' => [
                 [
-                    ['0'],
+                    [0],
                 ],
                 0,
             ],

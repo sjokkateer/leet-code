@@ -17,7 +17,7 @@ final class MaxIslandAreaTest extends TestCase
     {
         $islandFinder = new MaxIslandArea();
 
-        $actualNumberOfIslands = $islandFinder->maxAreaOfIsland($grid);
+        $actualNumberOfIslands = $islandFinder->processGrid($grid);
 
         static::assertEquals($expectedNumberOfIslands, $actualNumberOfIslands);
     }

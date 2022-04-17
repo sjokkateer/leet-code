@@ -4,29 +4,13 @@ declare(strict_types=1);
 
 namespace Sjokkateer\LeetCode\Medium;
 
-use function array_key_exists;
-use function count;
-
-class MaxIslandArea
+class MaxIslandArea extends AbstractIslandFinding
 {
-    public const WATER = 0;
-    public const LAND = 1;
-
-    /**
-     * @var array<array{self::WATER|self::LAND}>
-     */
-    private array $grid;
-
     private int $largestIsland;
     private int $islandArea;
 
-    /**
-     * @var array<array<true>>
-     */
-    private array $visitedTiles;
-
-    /** @param array<array{self::WATER|self::LAND}> $grid */
-    public function maxAreaOfIsland(array $grid): int
+    /** {@inheritDoc} */
+    public function processGrid(array $grid): int
     {
         $this->grid = $grid;
         $this->largestIsland = 0;
@@ -41,7 +25,7 @@ class MaxIslandArea
                 $this->islandArea = 0;
                 $this->visit($rowIndex, $colIndex);
 
-                if ($this->islandArea > $this->largestIsland) {
+                if ($this->newIslandIsLarger()) {
                     $this->largestIsland = $this->islandArea;
                 }
             }
@@ -50,78 +34,14 @@ class MaxIslandArea
         return $this->largestIsland;
     }
 
-    private function isWater(int $value): bool
+    private function newIslandIsLarger(): bool
     {
-        return $value === self::WATER;
+        return $this->islandArea > $this->largestIsland;
     }
 
-    private function isVisited(int $row, int $col): bool
+    protected function update(int $row, int $col): void
     {
-        return array_key_exists($row, $this->visitedTiles)
-            && array_key_exists($col, $this->visitedTiles[$row]);
-    }
-
-    private function visit(int $row, int $col): void
-    {
-        if (!$this->withinBounds($row, $col)) {
-            return;
-        }
-
-        if ($this->isWater($this->grid[$row][$col])) {
-            return;
-        }
-
-        if ($this->isVisited($row, $col)) {
-            return;
-        }
-
-        $this->visitedTiles[$row][$col] = true;
+        parent::update($row, $col);
         $this->islandArea++;
-
-        $this->visitLeft($row, $col);
-        $this->visitRight($row, $col);
-        $this->visitUp($row, $col);
-        $this->visitDown($row, $col);
-    }
-
-    private function withinBounds(int $row, int $col): bool
-    {
-        if ($row < 0) {
-            return false;
-        }
-
-        if ($row >= count($this->grid)) {
-            return false;
-        }
-
-        if ($col < 0) {
-            return false;
-        }
-
-        if ($col >= count($this->grid[$row])) {
-            return false;
-        }
-
-        return true;
-    }
-
-    private function visitLeft(int $row, int $col): void
-    {
-        $this->visit($row, $col - 1);
-    }
-
-    private function visitRight(int $row, int $col): void
-    {
-        $this->visit($row, $col + 1);
-    }
-
-    private function visitUp(int $row, int $col): void
-    {
-        $this->visit($row - 1, $col);
-    }
-
-    private function visitDown(int $row, int $col): void
-    {
-        $this->visit($row + 1, $col);
     }
 }
