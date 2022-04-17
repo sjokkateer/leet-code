@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Sjokkateer\LeetCode\Medium;
 
+/**
+ * #695. Max Area of Island
+ * https://leetcode.com/problems/max-area-of-island/
+ */
 class MaxIslandArea extends AbstractIslandFinding
 {
     private int $largestIsland;

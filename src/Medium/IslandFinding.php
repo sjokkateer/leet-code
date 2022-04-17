@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Sjokkateer\LeetCode\Medium;
 
+/**
+ * #200. Number of Islands
+ * https://leetcode.com/problems/number-of-islands/
+ */
 class IslandFinding extends AbstractIslandFinding
 {
     private int $numberOfIslands;
